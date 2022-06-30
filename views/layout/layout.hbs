@@ -14,11 +14,12 @@
 </head>
 
 <body>
-    {{#if admin}}
+   {{#if admin}}
    {{>admin-header}}
+   {{{body}}}
    {{else}}
    {{>user-header}}
-    {{{body}}}
+   {{{body}}}
     {{/if}}
 
     <!-- Optional JavaScript; choose one of the two! -->
