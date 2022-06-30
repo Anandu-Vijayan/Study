@@ -1,0 +1,19 @@
+
+    <div class="container mt-5">
+        <div class="row">
+            {{#each product}}
+            <div class="col-md-3">
+                <div class="card" style="width: 18rem;">
+                    <img src={{this.Image}} class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.Name}}</h5>
+                        <p class="card-text">{{this.Discription}}</p>
+                        <a href="#" class="btn btn-primary">Rs:{{this.Price}}/-</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+   
