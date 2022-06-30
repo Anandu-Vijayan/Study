@@ -1,41 +1,43 @@
 var express = require('express');
+const productHelpers = require('../helpers/product-helpers');
+var fileUpload =require('express-fileupload')
+var productHelper=require('../helpers/product-helpers')
 var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  let product=[
-    {
-      Name:"Becardi",
-      Discription:"Nice Drink",
-      Price:5000,
-      Image:"https://cdn2.bigcommerce.com/server5500/tpbc2s65/products/420/images/6272/183061.primary_images__09938.1497900092.1280.1280.jpg?c=2"
+  productHelpers.getAllProducts().then((products)=>{
+    console.log(products);
 
-    },
-    {
-      Name:"Becardi",
-      Discription:"Nice Drink",
-      Price:5000,
-      Image:"https://cdn2.bigcommerce.com/server5500/tpbc2s65/products/420/images/6272/183061.primary_images__09938.1497900092.1280.1280.jpg?c=2"
-
-    },
-    {
-      Name:"Becardi",
-      Discription:"Nice Drink",
-      Price:5000,
-      Image:"https://cdn2.bigcommerce.com/server5500/tpbc2s65/products/420/images/6272/183061.primary_images__09938.1497900092.1280.1280.jpg?c=2"
-
-    },
-    {
-      Name:"Becardi",
-      Discription:"Nice Drink",
-      Price:5000,
-      Image:"https://cdn2.bigcommerce.com/server5500/tpbc2s65/products/420/images/6272/183061.primary_images__09938.1497900092.1280.1280.jpg?c=2"
-
-    },
-    
-
-  ]
-  res.render('admin/view-product',{admin:true,product})
+    res.render('admin/view-product',{admin:true,products})
+  })
+  
 });
+router.get('/add-product',(req,res)=>{
+  res.render('admin/add-product',{admin:true})
+})
+router.post('/add-product',(req,res)=>{
+  console.log(req.body);
+  console.log(req.files.Image);
+  productHelpers.addProduct(req.body).then((id)=>{
+    let image=req.files.Image
+    console.log(id.insertedId);
+    let ID=id.insertedId
+    console.log("0000000000000000000000000000000000000000000000000000000000000000");
+    image.mv('./public/images/'+ID+'.jpg',(err)=>{
+      console.log("ddseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+      console.log(id.insertedId);
+      if(!err){
+        res.render('admin/add-product',{admin:true})
+
+ 
+      }else{
+        console.log(err);
+      }
+    })
+    
+  })
+  
+})
 
 module.exports = router;
