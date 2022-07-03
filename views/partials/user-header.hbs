@@ -30,7 +30,11 @@
                                 {{/if}}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                {{#if user}}
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                {{else}}
                                 <li><a class="dropdown-item" href="/login">Login</a></li>
+                                {{/if}}
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 
                             </ul>
