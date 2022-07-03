@@ -8,6 +8,7 @@ var app =express()
 var fileUpload = require('express-fileUpload')
 var db=require('./config/connection')
 var mv =require('mv')
+var session=require('express-session')
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
+app.use(session({secret:"Key",cookie:{maxAge:60000}}))
 db.connect((err)=>{
   if(err) console.log("Db Not connected");
   else console.log("Database connected");
